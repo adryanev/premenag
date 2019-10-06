@@ -14,10 +14,23 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.2.0",
         "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+        "yiisoft/yii2-bootstrap4": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "fedemotta/yii2-widget-datatables": "^1.3",
+        "nesbot/carbon": "^2.17",
+        "mdmsoft/yii2-admin": "~2.0",
+        "insolita/yii2-migration-generator": "~3.1",
+        "dominus77/yii2-sweetalert2-widget": "~1.3",
+        "linq/php-linq": "~1.0",
+        "demogorgorn/yii2-ajax-submit-button": "*",
+        "phpoffice/phpspreadsheet": "^1.9",
+        "phpoffice/phpword": "^0.16.0",
+        "dompdf/dompdf": "^0.8.3",
+        "2amigos/yii2-tinymce-widget": "~1.1",
+        "mootensai/yii2-enhanced-gii": "dev-master",
+        "kartik-v/yii2-widgets": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
