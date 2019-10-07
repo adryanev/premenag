@@ -4,7 +4,8 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'premenag',
+    'name'=>'Sistem Presensi Kancab Kementrian Agama Provinsi Riau',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -69,7 +70,7 @@ $config = [
             ],
         ],
         'assetManager'=>[
-            'linkAssets' => true,
+//            'linkAssets' => true,
             'appendTimestamp' => YII_ENV_PROD ? true : false,
             'bundles'=>[
                 'yii\bootstrap4\BootstrapAsset'=>[
