@@ -1,7 +1,7 @@
 <?php
 
 
-namespace common\assets\metronic;
+namespace app\assets\metronic;
 
 
 use dominus77\sweetalert2\assets\SweetAlert2Asset;
@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 class MetronicDashboardDemo1Asset extends AssetBundle
 {
 
-    public $sourcePath = '@common/assets/metronic/assets';
+    public $sourcePath = '@app/assets/metronic/assets';
 
 
     public $depends = [BaseMetronicDemo1Asset::class, SweetAlert2Asset::class];

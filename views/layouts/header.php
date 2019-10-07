@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap4\Html;
 $namaLengkap = Html::encode(Yii::$app->user->identity->profilUser->getNamaLengkap());
 $inisial = strtoupper(substr(Html::encode($namaLengkap),0 ,1));
 $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());

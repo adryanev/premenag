@@ -1,7 +1,7 @@
 <?php
 
 
-namespace common\assets\metronic;
+namespace app\assets\metronic;
 
 
 use yii\bootstrap4\BootstrapAsset;
@@ -11,7 +11,7 @@ use yii\web\YiiAsset;
 
 class BaseMetronicAsset extends AssetBundle
 {
-    public $sourcePath = '@common/assets/metronic/assets';
+    public $sourcePath = '@app/assets/metronic/assets';
 
     public $css = [
         'vendors/general/perfect-scrollbar/css/perfect-scrollbar.css',

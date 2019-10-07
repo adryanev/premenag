@@ -7,7 +7,7 @@
  * Time: 2:10 AM
  */
 
-namespace common\widgets;
+namespace app\widgets;
 
 
 use Yii;

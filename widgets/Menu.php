@@ -7,7 +7,7 @@
  * Time: 8:06 PM
  */
 
-namespace common\widgets;
+namespace app\widgets;
 
 use Yii;
 use yii\bootstrap4\Html;

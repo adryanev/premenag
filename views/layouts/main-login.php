@@ -3,13 +3,9 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use common\assets\metronic\MetronicLoginPageDemo1Asset;
-use common\widgets\Alert;
-use yii\helpers\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use app\assets\metronic\MetronicLoginPageDemo1Asset;
+use yii\bootstrap4\Html;
 use yii\helpers\Url;
-use yii\widgets\Breadcrumbs;
 
 MetronicLoginPageDemo1Asset::register($this);
 ?>
@@ -36,7 +32,7 @@ MetronicLoginPageDemo1Asset::register($this);
     </script>
 
     <!--end::Fonts -->
-    <?php $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(['/uinicon.png'])]); ?>
+    <?php $this->registerLinkTag(['rel' => 'icon', 'href' => Url::to(['/favicon.ico'])]); ?>
 
 
     <?php $this->head() ?>

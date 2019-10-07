@@ -1,14 +1,14 @@
 <?php
 
 
-namespace common\assets\metronic;
+namespace app\assets\metronic;
 
 
 use yii\web\AssetBundle;
 
 class MetronicLoginPageDemo1Asset extends AssetBundle
 {
-    public $sourcePath = '@common/assets/metronic/assets';
+    public $sourcePath = '@app/assets/metronic/assets';
 
 
 

@@ -6,12 +6,12 @@
  * Date: 9/30/2019
  * Time: 10:13 PM
  */
-namespace common\assets\metronic;
+namespace app\assets\metronic;
 
 class BaseMetronicDemo1Asset extends \yii\web\AssetBundle
 {
 
-    public $sourcePath = '@common/assets/metronic/assets';
+    public $sourcePath = '@app/assets/metronic/assets';
 
 
     public $css = [
