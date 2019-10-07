@@ -114,7 +114,7 @@ if (YII_ENV_DEV) {
             'crud' => [
                 'class' => 'yii\gii\generators\crud\Generator',
                 'templates' => [
-                    'metronic' => '@common/templates/crud/metronic',
+                    'metronic' => '@app/templates/crud/metronic',
                 ]
             ]
         ],
