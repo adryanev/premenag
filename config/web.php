@@ -16,8 +16,10 @@ $config = [
         'admin' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
-
-        ]
+        ],
+        'profile' => [
+            'class' => 'app\modules\Profile',
+        ],
 
     ],
     'components' => [
