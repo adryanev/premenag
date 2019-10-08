@@ -23,9 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="kt-widget24__details">
                         <div class="kt-widget24__info">
                             <h4 class="kt-widget24__title">
-                                Program Studi
+                                Pegawai
                             </h4>
-                            <span class="kt-widget24__desc">Jumlah Program Studi</span>
+                            <span class="kt-widget24__desc">Jumlah Pegawai</span>
                         </div>
                         <span class="kt-widget24__stats kt-font-brand">
                             <span class="counter">153</span>
@@ -42,9 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="kt-widget24__details">
                         <div class="kt-widget24__info">
                             <h4 class="kt-widget24__title">
-                                Pengguna
+                                Presensi
                             </h4>
-                            <span class="kt-widget24__desc">Jumlah Akun Pengguna</span>
+                            <span class="kt-widget24__desc">Jumlah Presensi Hari ini</span>
                         </div>
                         <span class="kt-widget24__stats kt-font-warning"><span class="counter">86786</span></span>
                     </div>
@@ -58,15 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="kt-widget24">
                     <div class="kt-widget24__details">
                         <div class="kt-widget24__info">
-                            <h4 class="kt-widget24__title">Akreditasi Prodi</h4>
-                            <span class="kt-widget24__desc">Akreditasi Program Studi Tahun <?=date('Y')?></span>
+                            <h4 class="kt-widget24__title">Tepat Waktu</h4>
+                            <span class="kt-widget24__desc">Jumlah Pegawai Tepat Waktu Hari ini</span>
                         </div>
                         <span class="kt-widget24__stats kt-font-danger"><span class="counter">47</span></span>
                     </div>
-                    <?=\yii\bootstrap4\Progress::widget([
-                            'barOptions' => ['class'=>'progress-bar progress-bar-striped progress-bar-animated kt-bg-danger'],
-                        'percent' => 80
-                    ])?>
 
                 </div>
 
@@ -79,16 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="kt-widget24__details">
                         <div class="kt-widget24__info">
                             <h4 class="kt-widget24__title">
-                                Akreditasi Perguruan Tinggi
+                                Terlambat
                             </h4>
-                            <span class="kt-widget24__desc">Akreditasi Insitusi Perguruan Tinggi Tahun <?=date('Y')?></span>
+                            <span class="kt-widget24__desc">Jumlah Pegawai Terlambat Hari ini</span>
                         </div>
                         <span class="kt-widget24__stats kt-font-success"><span class="counter">7896</span></span>
                     </div>
-                    <?=\yii\bootstrap4\Progress::widget([
-                            'barOptions' => ['class'=>'progress-bar progress-bar-striped progress-bar-animated kt-bg-success'],
-                        'percent' => 40
-                    ])?>
 
                 </div>
 
