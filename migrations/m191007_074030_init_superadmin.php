@@ -33,7 +33,9 @@ class m191007_074030_init_superadmin extends Migration
             'id_golongan'=>1,
             'nama'=>'Super Admin',
             'nip'=>'000000000001',
-            'jabatan'=>'Super Administrator'
+            'jabatan'=>'Super Administrator',
+            'created_at'=>\Carbon\Carbon::now()->timestamp,
+            'updated_at'=>\Carbon\Carbon::now()->timestamp
         ]);
     }
 

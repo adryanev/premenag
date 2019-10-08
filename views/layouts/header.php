@@ -1,7 +1,7 @@
 <?php
 
 use yii\bootstrap4\Html;
-$namaLengkap = Html::encode(Yii::$app->user->identity->profilUser->getNamaLengkap());
+$namaLengkap = Html::encode(Yii::$app->user->identity->pegawai->nama);
 $inisial = strtoupper(substr(Html::encode($namaLengkap),0 ,1));
 $roles = Yii::$app->authManager->getRolesByUser(Yii::$app->user->getId());
 $role = ucfirst(array_keys($roles)[0]);
@@ -514,8 +514,8 @@ var timeDisplay = document.getElementById("time");
 
 function refreshTime() {
     moment.locale('ID');
-  var dateString = moment().format('dddd, D MMMM YYYY, hh:mm:ss');
-  timeDisplay.innerHTML = dateString;
+  
+  timeDisplay.innerHTML = moment().format('dddd, D MMMM YYYY, hh:mm:ss');
 }
 
 setInterval(refreshTime, 1000);

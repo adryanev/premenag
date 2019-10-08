@@ -1,6 +1,6 @@
 <?php
 
-use common\widgets\Menu;
+use app\widgets\Menu;
 use mdm\admin\components\Helper;
 use yii\bootstrap4\Html;
 
