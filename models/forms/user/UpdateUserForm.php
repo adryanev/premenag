@@ -25,6 +25,7 @@ class UpdateUserForm extends Model
     public $nama;
     public $nip;
     public $golongan;
+    public $jabatan;
     /** @var UploadedFile */
     public $avatar;
 
@@ -58,7 +59,7 @@ class UpdateUserForm extends Model
         if (!$this->_user) {
             throw new InvalidArgumentException('User tidak Ditemukan');
         }
-        $this->_pegawai = $this->_user->profilUser;
+        $this->_pegawai = $this->_user->pegawai;
 
         $this->setAttributes([
             'username' => $this->_user->username,
@@ -103,7 +104,7 @@ class UpdateUserForm extends Model
         ], false);
 
         $pegawai->setAttributes(['nama' => $this->nama, 'nip' => $this->nip,
-            '$this->golongan' => $this->golongan],false);
+            'golongan' => $this->golongan,'jabatan'=>$this->jabatan],false);
 
         if(!empty($this->avatar)){
             $timestamp = Carbon::now()->timestamp;

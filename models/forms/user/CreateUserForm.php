@@ -26,6 +26,7 @@ class CreateUserForm extends Model
     public $nama;
     public $nip;
     public $golongan;
+    public $jabatan;
     /** @var UploadedFile */
     public $avatar;
 
@@ -73,7 +74,8 @@ class CreateUserForm extends Model
         $pegawai->setAttributes([
             'nama' => $this->nama,
             'nip' => $this->nip,
-            '$this->golongan' => $this->golongan], false);
+            'golongan' => $this->golongan,
+            'jabatan'=>$this->jabatan], false);
 
         if(!empty($this->avatar)){
             $timestamp = Carbon::now()->timestamp;
@@ -81,6 +83,8 @@ class CreateUserForm extends Model
             $filename = "$timestamp".'-'.$this->avatar->getBaseName().'.'.$this->avatar->getExtension();
             $pegawai->avatar = $filename;
             $this->avatar->saveAs('@web/media/users'.$filename);
+        }else{
+            $this->avatar = 'default.jpg';
         }
 
 

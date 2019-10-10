@@ -11,21 +11,6 @@ $menuItems = [
     ],
 
     ['label' => 'Data Master', 'url' => ['/site/index'], 'options' => ['class' => 'kt-menu__section']],
-    [
-        'label' => 'Pegawai',
-        'icon' => '<i class=\'la la-users\'></i>',
-        'url' => 'javascript:;',
-        'items' => [
-            ['label' => 'Kategori', 'icon' => '<i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>', 'url' => ['/kategori/index'],],
-            ['label' => 'Produk', 'icon' => '<i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>', 'url' => ['/fakultas-akademi/index'],],
-            [
-                'label' => 'Promo',
-                'icon' => '<i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>',
-                'url' => ['/program-studi/index'],
-            ],
-
-        ],
-    ],
 
     ['label' => 'Pengguna', 'icon' => '<i class=\'la la-user-secret\'></i>', 'url' => 'javascript:;',
         'items' => [
@@ -34,16 +19,15 @@ $menuItems = [
 
         ],
     ],
-
+    [
+        'label' => 'Pegawai',
+        'icon' => '<i class=\'la la-users\'></i>',
+        'url' => ['/pegawai/index'],
+    ],
     [
         'label' => 'Golongan',
         'icon' => '<i class=\'la la-certificate\'></i>',
-        'url' => 'javascript:;',
-        'items' => [
-            ['label' => 'Verifikasi', 'icon' => '<i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>', 'url' => ['/akreditasi/index'],],
-            ['label' => 'Data', 'icon' => '<i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>', 'url' => ['/akreditasi-prodi/index'],],
-
-        ],
+        'url' => ['/golongan/index'],
 
     ],
 

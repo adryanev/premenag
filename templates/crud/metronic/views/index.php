@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                         ?>
 
-                        ['class' => 'common\widgets\ActionColumn','header'=>'Aksi'],
+                        ['class' => 'app\widgets\ActionColumn','header'=>'Aksi'],
                         ],
                         ]); ?>
                     <?php else: ?>

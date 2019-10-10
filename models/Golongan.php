@@ -41,7 +41,7 @@ class Golongan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Golongan',
             'tunjangan' => 'Tunjangan',
         ];
     }
