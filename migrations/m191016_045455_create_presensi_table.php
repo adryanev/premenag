@@ -15,6 +15,9 @@ class m191016_045455_create_presensi_table extends Migration
         $this->createTable('{{%presensi}}', [
             'id' => $this->primaryKey(),
             'tanggal' => $this->date(),
+            'is_buka'=>$this->boolean(),
+            'created_at'=>$this->integer(),
+            'updated_at'=>$this->integer()
 
         ]);
     }

@@ -30,6 +30,25 @@ $menuItems = [
         'url' => ['/golongan/index'],
 
     ],
+    ['label' => 'Utilitas', 'url' => ['/site/index'], 'options' => ['class' => 'kt-menu__section']],
+
+    [
+            'label'=>'Lokasi Pegawai',
+        'icon'=>'<i class="la la-map-marker"></i>',
+        'url'=>['/lokasi/index'],
+    ],
+    ['label' => 'Laporan', 'url' => ['/site/index'], 'options' => ['class' => 'kt-menu__section']],
+    [
+        'label'=>'Laporan Presensi Pegawai',
+        'icon'=>'<i class="la la-file-text"></i>',
+        'url'=>['/laporan/presensi'],
+    ],
+    [
+        'label'=>'Laporan Tunjangan Pegawai',
+        'icon'=>'<i class="la la-file-text"></i>',
+        'url'=>['/laporan/tunjangan'],
+    ],
+
 
 
 ];
