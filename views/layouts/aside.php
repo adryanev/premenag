@@ -30,6 +30,12 @@ $menuItems = [
         'url' => ['/golongan/index'],
 
     ],
+    [
+        'label' => 'Koordinat',
+        'icon' => '<i class=\'la la-map\'></i>',
+        'url' => ['/koordinat/index'],
+
+    ],
     ['label' => 'Utilitas', 'url' => ['/site/index'], 'options' => ['class' => 'kt-menu__section']],
 
     [
