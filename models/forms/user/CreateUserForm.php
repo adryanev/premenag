@@ -87,7 +87,7 @@ class CreateUserForm extends Model
             $this->avatar = 'default.jpg';
         }
 
-
+        $user->group = $this->hak_akses;
         $transaction = Yii::$app->db->beginTransaction();
 
 
