@@ -7,12 +7,12 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'premenag',
-    'name'=>'Sistem Presensi Kancab Kementrian Agama Provinsi Riau',
+    'name' => $params['nama_sistem'],
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'modules' => [
         'admin' => [
@@ -22,7 +22,7 @@ $config = [
         'profile' => [
             'class' => 'app\modules\Profile',
         ],
-        'gridview' =>  [
+        'gridview' => [
             'class' => '\kartik\grid\Module'
             // enter optional module parameters below - only if you need to
             // use your own export download action or custom translation
@@ -30,8 +30,8 @@ $config = [
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
         ],
-        'datecontrol'=>[
-            'class'=>'kartik\datecontrol\Module',
+        'datecontrol' => [
+            'class' => 'kartik\datecontrol\Module',
             // format settings for displaying each date attribute (ICU format example)
             'displaySettings' => [
                 Module::FORMAT_DATE => 'dd MMMM yyyy',
@@ -54,9 +54,9 @@ $config = [
         ]
 
     ],
-    'language'=>'id-ID',
-    'sourceLanguage'=>'id-ID',
-    'timezone'=>'Asia/Jakarta',
+    'language' => 'id-ID',
+    'sourceLanguage' => 'id-ID',
+    'timezone' => 'Asia/Jakarta',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -89,7 +89,7 @@ $config = [
             ],
         ],
         'db' => $db,
-        'formatter'=>[
+        'formatter' => [
             'locale' => 'id_ID',
             'decimalSeparator' => ',',
             'thousandSeparator' => '.',
@@ -104,7 +104,7 @@ $config = [
             'showScriptName' => false,
             // Disable r= routes
             'enablePrettyUrl' => true,
-            'rules' =>[
+            'rules' => [
 //                ['class' => 'common\helpers\UrlRule', 'connectionID' => 'db', /* ... */],
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
@@ -112,15 +112,22 @@ $config = [
 
             ],
         ],
-        'assetManager'=>[
+        'assetManager' => [
 //            'linkAssets' => true,
             'appendTimestamp' => YII_ENV_PROD ? true : false,
-            'bundles'=>[
-                'yii\bootstrap4\BootstrapAsset'=>[
+            'bundles' => [
+                'yii\bootstrap4\BootstrapAsset' => [
                     'sourcePath' => '@app/assets/metronic/assets',
 
-                    'css'=>['css/demo1/style.bundle.css']
-                ]
+                    'css' => ['css/demo1/style.bundle.css']
+                ],
+                'dosamigos\google\maps\MapAsset' => [
+                    'options' => [
+                        'key' => $params['maps_api'],
+                        'language' => 'id',
+                        'version' => '3.1.18'
+                    ]
+                ],
             ]
         ],
         'as access' => [
@@ -146,13 +153,13 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '::1', '192.168.2.2','192.168.10.1'], // adjust this to your needs
+        'allowedIPs' => ['127.0.0.1', '::1', '192.168.2.2', '192.168.10.1'], // adjust this to your needs
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['127.0.0.1', '::1', '192.168.2.2','192.168.10.1'], // adjust this to your needs
+        'allowedIPs' => ['127.0.0.1', '::1', '192.168.2.2', '192.168.10.1'], // adjust this to your needs
         'generators' => [ // HERE
             'crud' => [
                 'class' => 'yii\gii\generators\crud\Generator',
