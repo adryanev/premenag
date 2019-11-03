@@ -1,14 +1,13 @@
 <?php
 
-namespace app\modules\controllers;
+namespace app\modules\profile\controllers;
 
 
-use app\models\forms\user\UpdatePasswordForm;
 use app\models\forms\user\UpdateAccountForm;
+use app\models\forms\user\UpdatePasswordForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 
@@ -24,12 +23,12 @@ class AccountController extends Controller
     public function behaviors()
     {
         return [
-            'access'=>[
-                'class'=>AccessControl::className(),
-                'rules'=>[
-                    ['actions'=>['edit-account','change-password'],
-                        'allow'=>true,
-                        'roles'=>['@']
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['actions' => ['edit-account', 'change-password'],
+                        'allow' => true,
+                        'roles' => ['@']
                     ]
                 ]
             ],
@@ -42,22 +41,22 @@ class AccountController extends Controller
         $id = Yii::$app->user->getId();
         $model = new UpdateAccountForm($id);
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            if(!$model->validate()){
+        if ($model->load(Yii::$app->request->post())) {
+            if (!$model->validate()) {
                 throw new InvalidArgumentException('Gagal validasi pengguna');
             }
             $model->updateUser();
-            if($model === false){
+            if ($model === false) {
                 throw new InvalidArgumentException('Gagal memperbarui pengguna, terdapat error');
 
             }
 
-            Yii::$app->session->setFlash('success','Berhasil memperbarui pengguna');
+            Yii::$app->session->setFlash('success', 'Berhasil memperbarui pengguna');
 
             return $this->redirect(['default/index']);
         }
 
-        return $this->render('edit-account',[
+        return $this->render('edit-account', [
             'model' => $model,
         ]);
     }
@@ -67,20 +66,20 @@ class AccountController extends Controller
         $id = Yii::$app->user->getId();
         $modelPassword = new UpdatePasswordForm($id);
 
-        if($modelPassword->load(Yii::$app->request->post())){
+        if ($modelPassword->load(Yii::$app->request->post())) {
 
-            if($modelPassword->validate()){
+            if ($modelPassword->validate()) {
                 $modelPassword->updatePassword();
-                if(!$modelPassword){
+                if (!$modelPassword) {
                     throw new InvalidArgumentException('Gagal mengganti kata sandi');
                 }
-                Yii::$app->session->setFlash('success','Berhasil mengganti kata sandi');
+                Yii::$app->session->setFlash('success', 'Berhasil mengganti kata sandi');
                 return $this->redirect(['default/index']);
             }
 
         }
-        return $this->render('change-password',[
-            'modelPassword'=>$modelPassword,
+        return $this->render('change-password', [
+            'modelPassword' => $modelPassword,
 
         ]);
     }
@@ -89,7 +88,6 @@ class AccountController extends Controller
      * Renders the index view for the module
      * @return string
      */
-
 
 
 }

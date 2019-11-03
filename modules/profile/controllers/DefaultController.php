@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\controllers;
+namespace app\modules\profile\controllers;
 
 use app\models\User;
 use yii\filters\AccessControl;
@@ -18,17 +18,18 @@ class DefaultController extends Controller
     public function behaviors()
     {
         return [
-            'access'=>[
-                'class'=>AccessControl::className(),
-                'rules'=>[
-                    ['actions'=>['index'],
-                        'allow'=>true,
-                        'roles'=>['@']
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@']
                     ]
                 ]
             ],
         ];
     }
+
     /**
      * Renders the index view for the module
      * @return string

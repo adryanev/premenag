@@ -20,7 +20,7 @@ $config = [
             'layout' => 'left-menu',
         ],
         'profile' => [
-            'class' => 'app\modules\Profile',
+            'class' => 'app\modules\profile\Profile',
         ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
