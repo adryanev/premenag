@@ -22,6 +22,9 @@ $config = [
         'profile' => [
             'class' => 'app\modules\profile\Profile',
         ],
+        'api' => [
+            'class' => 'app\modules\api\Api',
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
             // enter optional module parameters below - only if you need to
