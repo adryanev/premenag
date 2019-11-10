@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -20,6 +19,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class Presensi extends \yii\db\ActiveRecord
 {
+
+    const BUKA = 1;
+    const TUTUP = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -28,6 +31,10 @@ class Presensi extends \yii\db\ActiveRecord
         return 'presensi';
     }
 
+    public function isBuka()
+    {
+        return $this->status === self::BUKA;
+    }
 
     public function behaviors()
     {

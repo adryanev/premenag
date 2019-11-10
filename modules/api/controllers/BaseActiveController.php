@@ -3,8 +3,8 @@
  * Project: premenag.
  * @author Adryan Eka Vandra <adryanekavandra@gmail.com>
  *
- * Date: 11/3/2019
- * Time: 7:56 PM
+ * Date: 11/10/2019
+ * Time: 2:12 PM
  */
 
 namespace app\modules\api\controllers;
@@ -14,10 +14,10 @@ use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\QueryParamAuth;
-use yii\rest\Controller;
+use yii\rest\ActiveController;
 use yii\rest\Serializer;
 
-class BaseController extends Controller
+class BaseActiveController extends ActiveController
 {
 
     public $serializer = [
@@ -37,14 +37,6 @@ class BaseController extends Controller
             ],
         ];
         return $behaviors;
-    }
 
-    protected function getResponseFormat()
-    {
-        return [
-            'status' => false,
-            'message' => '',
-            'data' => []
-        ];
     }
 }

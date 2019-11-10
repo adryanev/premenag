@@ -111,6 +111,21 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ]);
     }
 
+    /**
+     * Check if Access Toke is Still Valid
+     */
+
+    public static function isAccessTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.accessTokenExpire'];
+        return $timestamp + $expire >= time();
+    }
+
     public function behaviors()
     {
         return [TimestampBehavior::class];
@@ -222,6 +237,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
+    /**
+     * Generate new Access Token
+     */
+    public function generateAccessToken()
+    {
+        $this->access_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
 
     /**
      * Removes password reset token

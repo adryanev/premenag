@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -21,6 +20,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class PresensiKeluar extends \yii\db\ActiveRecord
 {
+    const PULANG = 1;
+    const BELUM_PULANG = 0;
+
     /**
      * {@inheritdoc}
      */

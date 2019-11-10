@@ -11,15 +11,8 @@ namespace app\modules\api\controllers;
 
 
 use app\models\Pegawai;
-use yii\rest\ActiveController;
-use yii\rest\Serializer;
 
-class PegawaiController extends ActiveController
+class PegawaiController extends BaseActiveController
 {
-
     public $modelClass = Pegawai::class;
-    public $serializer = [
-        'class' => Serializer::class,
-        'collectionEnvelope' => 'items'
-    ];
 }

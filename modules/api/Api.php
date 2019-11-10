@@ -2,6 +2,8 @@
 
 namespace app\modules\api;
 
+use Carbon\Carbon;
+
 /**
  * api module definition class
  */
@@ -18,7 +20,10 @@ class Api extends \yii\base\Module
     public function init()
     {
         parent::init();
-        \Yii::configure($this, require __DIR__ . '/config/api.php');
+        \Yii::$app->user->enableSession = false;
+        \Yii::$app->setComponents(require __DIR__ . '/config/api.php');
+        Carbon::setLocale('id');
+
 
         // custom initialization code goes here
     }

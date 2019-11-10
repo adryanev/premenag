@@ -2,8 +2,8 @@
 
 namespace app\models;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "presensi_masuk".
@@ -22,6 +22,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class PresensiMasuk extends \yii\db\ActiveRecord
 {
+    const DATANG = 1;
+    const TIDAK_DATANG = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -80,5 +83,25 @@ class PresensiMasuk extends \yii\db\ActiveRecord
     public function getPresensi()
     {
         return $this->hasOne(Presensi::className(), ['id' => 'id_presensi']);
+    }
+
+    public function isTerlambat($hari, $jamDatang)
+    {
+        $jam = 0;
+
+        switch ($hari) {
+            case 'Senin':
+            case 'Selasa':
+            case 'Rabu':
+            case 'Kamis':
+                $jam = ArrayHelper::getValue(\Yii::$app->params['waktu'], 'All.datang');
+                break;
+            case 'Jumat':
+                $jam = ArrayHelper::getValue(\Yii::$app->params['waktu'], 'Jumat.datang');
+                break;
+        }
+
+        return $jam < $jamDatang;
+
     }
 }

@@ -11,9 +11,8 @@ namespace app\modules\api\controllers;
 
 
 use app\models\Golongan;
-use yii\rest\ActiveController;
 
-class GolonganController extends ActiveController
+class GolonganController extends BaseActiveController
 {
 
     public $modelClass = Golongan::class;
