@@ -16,12 +16,12 @@ return [
     'user.accessTokenExpire' => 31536000,
     'waktu' => [
         'All' => [
-            'datang' => 073000,
-            'pulang' => 160000,
+            'datang' => '073000',
+            'pulang' => '160000',
         ],
         'Jumat' => [
-            'datang' => 073000,
-            'pulang' => 163000,
+            'datang' => '073000',
+            'pulang' => '163000',
         ],
     ]
 

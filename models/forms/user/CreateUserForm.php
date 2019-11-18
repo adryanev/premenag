@@ -7,10 +7,8 @@ namespace app\models\forms\user;
 use app\models\Pegawai;
 use app\models\User;
 use Carbon\Carbon;
-use InvalidArgumentException;
 use Yii;
 use yii\base\Model;
-use yii\bootstrap\ActiveForm;
 use yii\db\Exception;
 use yii\web\UploadedFile;
 
@@ -51,12 +49,12 @@ class CreateUserForm extends Model
     {
         return [
 
-            [['username', 'password', 'email', 'status', 'hak_akses', 'nama','nip','golongan'], 'required'],
-            [['username'],'unique','targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
-            [['email'],'unique','targetClass' => User::class,'message' => '{attribute} "{value}" telah digunakan.'],
-            [['username', 'password', 'email', 'hak_akses', 'nama','nip'], 'string'],
-            ['golongan','integer'],
-            ['avatar','file','skipOnEmpty' => true,'extensions' => ['jpg','png','jpeg','bmp']],
+            [['username', 'password', 'email', 'status', 'hak_akses', 'nama', 'nip', 'golongan', 'jabatan'], 'required'],
+            [['username'], 'unique', 'targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
+            [['email'], 'unique', 'targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
+            [['username', 'password', 'email', 'hak_akses', 'nama', 'nip', 'jabatan'], 'string'],
+            ['golongan', 'integer'],
+            ['avatar', 'file', 'skipOnEmpty' => true, 'extensions' => ['jpg', 'png', 'jpeg', 'bmp']],
             [['avatar'], 'safe']
         ];
     }
@@ -68,22 +66,22 @@ class CreateUserForm extends Model
         $user->setAttributes(['username' => $this->username,
             'email' => $this->email,
             'status' => $this->status,
-        ]);
+        ], false);
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $pegawai->setAttributes([
             'nama' => $this->nama,
             'nip' => $this->nip,
-            'golongan' => $this->golongan,
-            'jabatan'=>$this->jabatan], false);
+            'id_golongan' => $this->golongan,
+            'jabatan' => $this->jabatan], false);
 
-        if(!empty($this->avatar)){
+        if (!empty($this->avatar)) {
             $timestamp = Carbon::now()->timestamp;
 
-            $filename = "$timestamp".'-'.$this->avatar->getBaseName().'.'.$this->avatar->getExtension();
+            $filename = "$timestamp" . '-' . $this->avatar->getBaseName() . '.' . $this->avatar->getExtension();
             $pegawai->avatar = $filename;
-            $this->avatar->saveAs('@web/media/users'.$filename);
-        }else{
+            $this->avatar->saveAs(Yii::getAlias('@webroot') . '/media/users/' . $filename);
+        } else {
             $this->avatar = 'default.jpg';
         }
 

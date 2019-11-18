@@ -30,7 +30,6 @@ class UpdateUserForm extends Model
     public $avatar;
 
 
-
     /**
      * @var User
      */
@@ -40,14 +39,6 @@ class UpdateUserForm extends Model
      * @var Pegawai
      */
     private $_pegawai;
-
-    public function attributeLabels()
-    {
-        return [
-            'username' => 'Username',
-
-        ];
-    }
 
     public function __construct($id, $config = [])
     {
@@ -66,8 +57,13 @@ class UpdateUserForm extends Model
             'email' => $this->_user->email,
             'status' => $this->_user->status,
             'nama' => $this->_pegawai->nama,
-            
+            'golongan' => $this->_pegawai->id_golongan,
+            'jabatan' => $this->_pegawai->jabatan,
+            'nip' => $this->_pegawai->nip
+
+
         ], false);
+
 
         $auth = Yii::$app->getAuthManager();
         $r = array_keys($auth->getRolesByUser($this->_user->id));
@@ -77,16 +73,24 @@ class UpdateUserForm extends Model
         parent::__construct($config);
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Username',
+
+        ];
+    }
+
     public function rules(): array
     {
         return [
 
-            [['username', 'email', 'status', 'hak_akses', 'nama','nip','golongan'], 'required'],
-            [['username'],'unique','targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
-            [['email'],'unique','targetClass' => User::class,'message' => '{attribute} "{value}" telah digunakan.'],
+            [['username', 'email', 'status', 'hak_akses', 'nama', 'nip', 'golongan'], 'required'],
+            [['username'], 'unique', 'targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
+            [['email'], 'unique', 'targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
             [['username', 'email', 'hak_akses', 'nama'], 'string'],
-            ['golongan','integer'],
-            ['avatar','file','skipOnEmpty' => true,'extensions' => ['jpg','png','jpeg','bmp']],
+            ['golongan', 'integer'],
+            ['avatar', 'file', 'skipOnEmpty' => true, 'extensions' => ['jpg', 'png', 'jpeg', 'bmp']],
             [['avatar'], 'safe']
         ];
     }
@@ -104,14 +108,14 @@ class UpdateUserForm extends Model
         ], false);
 
         $pegawai->setAttributes(['nama' => $this->nama, 'nip' => $this->nip,
-            'golongan' => $this->golongan,'jabatan'=>$this->jabatan],false);
+            'golongan' => $this->golongan, 'jabatan' => $this->jabatan], false);
 
-        if(!empty($this->avatar)){
+        if (!empty($this->avatar)) {
             $timestamp = Carbon::now()->timestamp;
 
-            $filename = "$timestamp".'-'.$this->avatar->getBaseName().'.'.$this->avatar->getExtension();
+            $filename = "$timestamp" . '-' . $this->avatar->getBaseName() . '.' . $this->avatar->getExtension();
             $pegawai->avatar = $filename;
-            $this->avatar->saveAs('@web/media/users'.$filename);
+            $this->avatar->saveAs('@web/media/users' . $filename);
         }
 
 

@@ -1,8 +1,7 @@
 <?php
 
-use yii\bootstrap4\Html;
-use yii\helpers\Url;
 use kartik\grid\GridView;
+use yii\bootstrap4\Html;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -26,14 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= Html::encode($this->title) ?> <small>portlet sub title</small>
                     </h3>
                 </div>
-                <div class="kt-portlet__head-toolbar">
-                    <div class="kt-portlet__head-wrapper">
-                        <div class="kt-portlet__head-actions">
-
-                            <?= Html::button('<i class=flaticon2-add></i> Tambah Pegawai', ['value' => Url::to(['create']), 'title' => 'Tambah Pegawai', 'class' => 'showModalButton btn btn-success btn-elevate btn-elevate-air']); ?>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="kt-portlet__body">
                 <div class="pegawai-index">
@@ -55,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'golongan.nama',
                             'jabatan',
                             ['attribute' => 'avatar',
-                                'format' => ['image',['width'=>'60%']],
-                                'value' => function($model){
-                        return Yii::getAlias('@web/media/users/'.$model->avatar);
-}],
+                                'format' => ['image', ['width' => '60%']],
+                                'value' => function ($model) {
+                                    return Yii::getAlias('@web/media/users/' . $model->avatar);
+                                }],
                             'golongan.tunjangan:currency',
                             //'created_at',
                             //'updated_at',

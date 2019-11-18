@@ -9,7 +9,7 @@
 
 return [
     'urlManager' => [
-        'class' => 'yii\rest\UrlManager',
+        'class' => 'yii\web\UrlManager',
         // Disable index.php
         'showScriptName' => false,
         // Disable r= routes

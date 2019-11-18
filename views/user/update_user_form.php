@@ -1,12 +1,9 @@
 <?php
 
 use app\models\User;
-use kartik\depdrop\DepDrop;
 use kartik\select2\Select2;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\web\View;
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\forms\user\UpdateUserForm */
@@ -18,7 +15,6 @@ $this->title = 'Update Pengguna';
 $this->params['breadcrumbs'][] = ['label' => 'User', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 
 
 <div class="row">
@@ -41,15 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <div class="update_user_form">
 
-                        <?php $form = ActiveForm::begin(['id'=>'update-user-form']); ?>
+                        <?php $form = ActiveForm::begin(['id' => 'update-user-form']); ?>
 
                         <?= $form->field($model, 'username')->textInput() ?>
                         <?= $form->field($model, 'email')->textInput() ?>
                         <?= $form->field($model, 'status')->dropDownList([User::STATUS_ACTIVE => 'Aktif', User::STATUS_INACTIVE => 'Tidak Aktif'], ['prompt' => 'Pilih Status User']) ?>
-                        <?= $form->field($model, 'hak_akses')->dropDownList( $dataRoles,['prompt'=>'Pilih Hak Akses']) ?>
-
-                        <?= $form->field($model, 'status')->dropDownList([User::STATUS_ACTIVE => 'Aktif', User::STATUS_INACTIVE => 'Tidak Aktif'], ['prompt' => 'Pilih Status User']) ?>
-
+                        <?= $form->field($model, 'hak_akses')->dropDownList($dataRoles, ['prompt' => 'Pilih Hak Akses']) ?>
                         <?= $form->field($model, 'nama')->textInput() ?>
                         <?= $form->field($model, 'nip')->textInput() ?>
                         <?= $form->field($model, 'jabatan')->textInput() ?>
@@ -98,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <div class="update_password_from">
 
-                        <?php $form = ActiveForm::begin(['id'=>'update-password-form']); ?>
+                        <?php $form = ActiveForm::begin(['id' => 'update-password-form']); ?>
 
                         <?= $form->field($modelPassword, 'oldPassword')->passwordInput() ?>
                         <?= $form->field($modelPassword, 'newPassword')->passwordInput() ?>

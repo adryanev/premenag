@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Carbon\Carbon;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 
@@ -12,7 +13,7 @@ use yii\helpers\ArrayHelper;
  * @property int $id_presensi
  * @property int $id_pegawai
  * @property string $jam_masuk
- * @property string $telat_masuk
+ * @property int $telat_masuk
  * @property int $status
  * @property int $created_at
  * @property int $updated_at
@@ -45,7 +46,7 @@ class PresensiMasuk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_presensi', 'id_pegawai', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['id_presensi', 'id_pegawai', 'status', 'created_at', 'updated_at', 'telat_masuk'], 'integer'],
             [['jam_masuk', 'telat_masuk'], 'safe'],
             [['id_pegawai'], 'exist', 'skipOnError' => true, 'targetClass' => Pegawai::className(), 'targetAttribute' => ['id_pegawai' => 'id']],
             [['id_presensi'], 'exist', 'skipOnError' => true, 'targetClass' => Presensi::className(), 'targetAttribute' => ['id_presensi' => 'id']],
@@ -85,23 +86,46 @@ class PresensiMasuk extends \yii\db\ActiveRecord
         return $this->hasOne(Presensi::className(), ['id' => 'id_presensi']);
     }
 
-    public function isTerlambat($hari, $jamDatang)
+    public function hadir($hari, $jamDatang)
     {
-        $jam = 0;
+
+        $terlambat = $this->isTerlambat($hari, $jamDatang);
+        $this->jam_masuk = $jamDatang;
+        $this->status = self::DATANG;
+        $this->save(false);
+
+        return $this;
+    }
+
+    private function isTerlambat($hari, $jamDatang)
+    {
+
+        return $this->hitungTerlambat($hari, $jamDatang) > 0;
+
+    }
+
+    private function hitungTerlambat($hari, $jamDatang)
+    {
+        $waktuPeraturan = '';
+
 
         switch ($hari) {
             case 'Senin':
             case 'Selasa':
             case 'Rabu':
             case 'Kamis':
-                $jam = ArrayHelper::getValue(\Yii::$app->params['waktu'], 'All.datang');
+                $waktuPeraturan = ArrayHelper::getValue(\Yii::$app->params['waktu'], 'All.datang');
                 break;
             case 'Jumat':
-                $jam = ArrayHelper::getValue(\Yii::$app->params['waktu'], 'Jumat.datang');
+                $waktuPeraturan = ArrayHelper::getValue(\Yii::$app->params['waktu'], 'Jumat.datang');
                 break;
         }
 
-        return $jam < $jamDatang;
+        $waktuPeraturanParse = Carbon::parse($waktuPeraturan);
+        $waktuParse = Carbon::parse($jamDatang);
+        $diff = $waktuPeraturanParse->diffinMinutes($waktuParse, false);
+        $this->telat_masuk = $diff;
+        return $diff;
 
     }
 }

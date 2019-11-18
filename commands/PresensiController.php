@@ -16,6 +16,7 @@ use app\models\PresensiKeluar;
 use app\models\PresensiMasuk;
 use yii\console\Controller;
 use yii\console\ExitCode;
+use yii\db\Exception;
 use yii\web\NotFoundHttpException;
 
 class PresensiController extends Controller
@@ -38,7 +39,17 @@ class PresensiController extends Controller
             $modelPresensiMasuk->save(false);
 
             $modelPresensiKeluar = new PresensiKeluar();
+            $modelPresensiKeluar->id_presensi = $model->id;
+            $modelPresensiKeluar->id_pegawai = $pegawai->id;
+            $modelPresensiKeluar->status = PresensiKeluar::BELUM_PULANG;
+            $modelPresensiKeluar->save(false);
 
+        }
+        try {
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollBack();
+            return ExitCode::IOERR;
         }
         return ExitCode::OK;
     }

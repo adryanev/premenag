@@ -6,17 +6,18 @@ use app\models\forms\user\CreateUserForm;
 use app\models\forms\user\UpdatePasswordForm;
 use app\models\forms\user\UpdateUserForm;
 use app\models\Golongan;
-use Yii;
-use yii\base\InvalidArgumentException;
-use yii\filters\AccessControl;
 use app\models\User;
 use app\models\UserSearch;
+use Yii;
+use yii\base\InvalidArgumentException;
+use yii\bootstrap4\ActiveForm;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
-use yii\bootstrap4\ActiveForm;
+use yii\web\UploadedFile;
 
 
 /**
@@ -30,12 +31,12 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
-            'access'=>[
-                'class'=>AccessControl::className(),
-                'rules'=>[
-                    ['actions'=>['index','create','update','view','delete'],
-                     'allow'=>true,
-                     'roles'=>['@']
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['actions' => ['index', 'create', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@']
                     ]
                 ]
             ],
@@ -77,6 +78,22 @@ class UserController extends Controller
     }
 
     /**
+     * Finds the User model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return User the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -90,43 +107,42 @@ class UserController extends Controller
 
         $roles = array_keys($available_role);
 
-        foreach ($forbidden_roles as $role){
+        foreach ($forbidden_roles as $role) {
             $pos = array_search($role, $roles);
-            ArrayHelper::remove($roles,$pos);
+            ArrayHelper::remove($roles, $pos);
         }
 
         $dataRoles = array_combine($roles, $roles);
 
-        $golongan = Golongan::find()->where(['<>','id',1])->all();
-        $dataGolongan = ArrayHelper::map($golongan,'id','nama');
+        $golongan = Golongan::find()->where(['<>', 'id', 1])->all();
+        $dataGolongan = ArrayHelper::map($golongan, 'id', 'nama');
 
-        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post())) {
-
-            if($model->validate()){
+            $avatar = UploadedFile::getInstance($model, 'avatar');
+            $model->avatar = $avatar;
+            if ($model->validate()) {
 
                 $user = $model->addUser();
-                if($user === null){
+                if ($user === null) {
                     throw new InvalidArgumentException('Gagal membuat pengguna');
 
                 }
-                Yii::$app->session->setFlash('success','Berhasil menambahkan pengguna.');
+                Yii::$app->session->setFlash('success', 'Berhasil menambahkan pengguna.');
 
                 return $this->redirect(['user/index']);
 
             }
 
             throw new InvalidArgumentException('Gagal membuat user, Validasi data gagal');
+        } elseif (Yii::$app->request->isAjax) {
+            return $this->renderAjax('_create_user_form', compact('model', 'dataRoles', 'dataGolongan'));
         }
 
-        elseif (Yii::$app->request->isAjax){
-            return $this->renderAjax('_create_user_form',compact('model','dataRoles','dataGolongan'));
-        }
-
-        return $this->render('create_user_form', compact('model','dataRoles','dataGolongan'));
+        return $this->render('create_user_form', compact('model', 'dataRoles', 'dataGolongan'));
     }
 
     /**
@@ -146,50 +162,50 @@ class UserController extends Controller
 
         $roles = array_keys($available_role);
 
-        foreach ($forbidden_roles as $role){
+        foreach ($forbidden_roles as $role) {
             $pos = array_search($role, $roles);
-            ArrayHelper::remove($roles,$pos);
+            ArrayHelper::remove($roles, $pos);
         }
 
         $dataRoles = array_combine($roles, $roles);
 
-        $golongan = Golongan::find()->where(['<>','id',1])->all();
-        $dataGolongan = ArrayHelper::map($golongan,'id','nama');
+        $golongan = Golongan::find()->where(['<>', 'id', 1])->all();
+        $dataGolongan = ArrayHelper::map($golongan, 'id', 'nama');
 
 
-        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if(!$model->validate()){
+            if (!$model->validate()) {
                 throw new InvalidArgumentException('Gagal validasi pengguna');
             }
             $model->updateUser();
-            if($model === false){
+            if ($model === false) {
                 throw new InvalidArgumentException('Gagal memperbarui pengguna, terdapat error');
 
             }
 
-            Yii::$app->session->setFlash('success','Berhasil memperbarui pengguna');
+            Yii::$app->session->setFlash('success', 'Berhasil memperbarui pengguna');
 
             return $this->redirect(['view', 'id' => $model->getUser()->id]);
         }
 
-        if($modelPassword->load(Yii::$app->request->post())){
+        if ($modelPassword->load(Yii::$app->request->post())) {
 
-            if($modelPassword->validate()){
+            if ($modelPassword->validate()) {
                 $modelPassword->updatePassword();
-                if(!$modelPassword){
+                if (!$modelPassword) {
                     throw new InvalidArgumentException('Gagal mengganti kata sandi');
                 }
-                Yii::$app->session->setFlash('success','Berhasil mengganti kata sandi');
+                Yii::$app->session->setFlash('success', 'Berhasil mengganti kata sandi');
                 return $this->redirect(['view', 'id' => $model->getUser()->id]);
             }
 
         }
 
-        return $this->render('update_user_form', compact('model','modelPassword','dataGolongan','dataRoles'));
+        return $this->render('update_user_form', compact('model', 'modelPassword', 'dataGolongan', 'dataRoles'));
     }
 
     /**
@@ -203,24 +219,8 @@ class UserController extends Controller
     {
         $this->findModel($id)->delete();
 
-        Yii::$app->session->setFlash('success','Berhasil menghapus User.');
+        Yii::$app->session->setFlash('success', 'Berhasil menghapus User.');
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the User model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return User the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = User::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

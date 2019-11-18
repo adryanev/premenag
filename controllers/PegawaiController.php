@@ -2,15 +2,15 @@
 
 namespace app\controllers;
 
-use Yii;
-use yii\filters\AccessControl;
 use app\models\Pegawai;
 use app\models\PegawaiSearch;
+use Yii;
+use yii\bootstrap4\ActiveForm;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
-use yii\bootstrap4\ActiveForm;
 
 
 /**
@@ -24,12 +24,12 @@ class PegawaiController extends Controller
     public function behaviors()
     {
         return [
-            'access'=>[
-                'class'=>AccessControl::className(),
-                'rules'=>[
-                    ['actions'=>['index','create','update','view','delete'],
-                     'allow'=>true,
-                     'roles'=>['@']
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['actions' => ['index', 'create', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@']
                     ]
                 ]
             ],
@@ -70,36 +70,6 @@ class PegawaiController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Pegawai model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Pegawai();
-
-        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-        if ($model->load(Yii::$app->request->post())) {
-
-
-            $model->save();
-            Yii::$app->session->setFlash('success','Berhasil menambahkan Pegawai.');
-
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        elseif (Yii::$app->request->isAjax){
-            return $this->renderAjax('_form',['model'=>$model]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Updates an existing Pegawai model.
@@ -112,12 +82,12 @@ class PegawaiController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success','Berhasil mengubah Pegawai.');
+            Yii::$app->session->setFlash('success', 'Berhasil mengubah Pegawai.');
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -138,7 +108,7 @@ class PegawaiController extends Controller
     {
         $this->findModel($id)->delete();
 
-        Yii::$app->session->setFlash('success','Berhasil menghapus Pegawai.');
+        Yii::$app->session->setFlash('success', 'Berhasil menghapus Pegawai.');
 
         return $this->redirect(['index']);
     }

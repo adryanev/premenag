@@ -5,9 +5,9 @@ use yii\bootstrap4\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pegawai */
 
-$this->title = 'Ubah Pegawai: ' . $model->id;
+$this->title = 'Ubah Pegawai: ' . $model->nama;
 $this->params['breadcrumbs'][] = ['label' => 'Pegawai', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->nama, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Ubah';
 ?>
 
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Ubah';
                 <div class="pegawai-update">
 
                     <?= $this->render('_form', [
-                    'model' => $model,
+                        'model' => $model,
                     ]) ?>
 
                 </div>
