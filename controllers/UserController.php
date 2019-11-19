@@ -6,6 +6,7 @@ use app\models\forms\user\CreateUserForm;
 use app\models\forms\user\UpdatePasswordForm;
 use app\models\forms\user\UpdateUserForm;
 use app\models\Golongan;
+use app\models\Pegawai;
 use app\models\User;
 use app\models\UserSearch;
 use Yii;
@@ -14,6 +15,7 @@ use yii\bootstrap4\ActiveForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -34,7 +36,7 @@ class UserController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['actions' => ['index', 'create', 'update', 'view', 'delete'],
+                    ['actions' => ['index', 'create', 'update', 'view', 'delete', 'hapus-avatar'],
                         'allow' => true,
                         'roles' => ['@']
                     ]
@@ -44,6 +46,7 @@ class UserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'hapus-avatar' => ['POST']
                 ],
             ],
         ];
@@ -177,9 +180,11 @@ class UserController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->avatar = UploadedFile::getInstance($model, 'avatar');
             if (!$model->validate()) {
-                throw new InvalidArgumentException('Gagal validasi pengguna');
+                var_dump($model->errors);
+                exit();
             }
             $model->updateUser();
             if ($model === false) {
@@ -222,5 +227,17 @@ class UserController extends Controller
         Yii::$app->session->setFlash('success', 'Berhasil menghapus User.');
 
         return $this->redirect(['index']);
+    }
+
+    public function actionHapusAvatar($id)
+    {
+        $pegawai = Pegawai::findOne($id);
+        $avatar = $pegawai->avatar;
+
+        FileHelper::unlink(Yii::getAlias('@webroot/media/users/' . $avatar));
+        $pegawai->avatar = null;
+        $pegawai->save(false);
+
+        return $this->redirect(['user/update', 'id' => $id]);
     }
 }

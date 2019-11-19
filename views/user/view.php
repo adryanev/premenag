@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <?= Html::a('<i class=flaticon2-edit></i> Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-warning btn-elevate btn-elevate-air']) ?>
                             <?= Html::a('<i class=flaticon2-delete></i> Hapus', ['delete', 'id' => $model->id], [
-                            'class' => 'btn btn-danger btn-elevate btn-elevate-air',
-                            'data' => [
-                            'confirm' => 'Apakah anda ingin menghapus item ini?',
-                            'method' => 'post',
-                            ],
+                                'class' => 'btn btn-danger btn-elevate btn-elevate-air',
+                                'data' => [
+                                    'confirm' => 'Apakah anda ingin menghapus item ini?',
+                                    'method' => 'post',
+                                ],
                             ]) ?>
                         </div>
                     </div>
@@ -46,24 +46,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                     <?= DetailView::widget([
-                    'model' => $model,
-                    'attributes' => [
-                                'id',
-            'username',
-            'pegawai.nama',
-            'pegawai.nip',
-            'pegawai.golongan.nama',
-            'pegawai.golongan.tunjangan:currency',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            'access_token',
-            'email:email',
-            'status',
-            'group',
-            'created_at',
-            'updated_at',
-                    ],
+                        'model' => $model,
+                        'attributes' => [
+                            'id',
+                            'username',
+                            'pegawai.nama',
+                            'pegawai.nip',
+                            'pegawai.golongan.nama',
+                            'pegawai.golongan.tunjangan:currency',
+                            ['attribute' => 'pegawai.avatar',
+                                'format' => ['image', ['width' => '50%']],
+                                'value' => function ($model) {
+                                    return Yii::getAlias('@web/media/users/' . $model->pegawai->avatar);
+                                }],
+//                            'auth_key',
+//                            'password_hash',
+//                            'password_reset_token',
+//                            'access_token',
+                            'email:email',
+                            'status:boolean',
+                            'group',
+                            'created_at:datetime',
+                            'updated_at:datetime',
+                        ],
                     ]) ?>
 
                 </div>

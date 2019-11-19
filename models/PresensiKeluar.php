@@ -123,7 +123,7 @@ class PresensiKeluar extends \yii\db\ActiveRecord
 
         $waktuPeraturanParse = Carbon::parse($waktuPeraturan);
         $waktuParse = Carbon::parse($jamPulang);
-        $diff = $waktuPeraturanParse->diffinMinutes($waktuParse, false);
+        $diff = $waktuParse->diffinMinutes($waktuPeraturanParse, false);
         $this->duluan_keluar = $diff;
         return $diff;
 

@@ -13,6 +13,11 @@ use yii\base\Model;
 use yii\db\Exception;
 use yii\web\UploadedFile;
 
+/**
+ *
+ * @property Pegawai $pegawai
+ * @property User $user
+ */
 class UpdateUserForm extends Model
 {
 
@@ -59,7 +64,7 @@ class UpdateUserForm extends Model
             'nama' => $this->_pegawai->nama,
             'golongan' => $this->_pegawai->id_golongan,
             'jabatan' => $this->_pegawai->jabatan,
-            'nip' => $this->_pegawai->nip
+            'nip' => $this->_pegawai->nip,
 
 
         ], false);
@@ -86,8 +91,6 @@ class UpdateUserForm extends Model
         return [
 
             [['username', 'email', 'status', 'hak_akses', 'nama', 'nip', 'golongan'], 'required'],
-            [['username'], 'unique', 'targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
-            [['email'], 'unique', 'targetClass' => User::class, 'message' => '{attribute} "{value}" telah digunakan.'],
             [['username', 'email', 'hak_akses', 'nama'], 'string'],
             ['golongan', 'integer'],
             ['avatar', 'file', 'skipOnEmpty' => true, 'extensions' => ['jpg', 'png', 'jpeg', 'bmp']],
@@ -115,7 +118,7 @@ class UpdateUserForm extends Model
 
             $filename = "$timestamp" . '-' . $this->avatar->getBaseName() . '.' . $this->avatar->getExtension();
             $pegawai->avatar = $filename;
-            $this->avatar->saveAs('@web/media/users' . $filename);
+            $this->avatar->saveAs(Yii::getAlias('@webroot') . '/media/users/' . $filename);
         }
 
 
@@ -161,7 +164,7 @@ class UpdateUserForm extends Model
         return $this->_user;
     }
 
-    public function getProfilUser()
+    public function getPegawai()
     {
         return $this->_pegawai;
     }
