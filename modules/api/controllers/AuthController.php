@@ -47,11 +47,14 @@ class AuthController extends BaseController
         $response = $this->getResponseFormat();
         $model = new LoginForm();
         if ($model->load(\Yii::$app->request->post(), '') && $model->login()) {
-            $model->getUser()->generateAccessToken();
-            $model->getUser()->save(false);
+            $user = $model->getUser();
+            $user->generateAccessToken();
+            $user->update(false);
+            $profil = $user->pegawai;
             $response['status'] = true;
             $response['message'] = 'Berhasil Login';
-            $response['data'] = $model->getUser();
+            $response['data']['user'] = $user;
+            $response['data']['pegawai'] = $profil;
             return $response;
         }
         $model->validate();
