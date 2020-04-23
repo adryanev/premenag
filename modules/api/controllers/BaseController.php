@@ -44,7 +44,7 @@ class BaseController extends Controller
         return [
             'status' => false,
             'message' => '',
-            'data' => []
+            'data' => null
         ];
     }
 }

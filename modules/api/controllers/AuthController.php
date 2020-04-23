@@ -51,14 +51,15 @@ class AuthController extends BaseController
             $user->generateAccessToken();
             $user->update(false);
             $profil = $user->pegawai;
-            $response['status'] = true;
-            $response['message'] = 'Berhasil Login';
+            $response['status'] = 200;
+            $response['message'] = 'Success';
             $response['data']['user'] = $user;
             $response['data']['pegawai'] = $profil;
-            return $response;
+        } else {
+            $response['status'] = 401;
+            $response['message'] = 'Unauthorized';
         }
-        $model->validate();
-        return $model;
+        return $response;
 
     }
 
@@ -71,8 +72,8 @@ class AuthController extends BaseController
         $user->save(false);
         \Yii::$app->user->logout();
 
-        $response['status'] = true;
-        $response['message'] = 'Berhasil Logout';
+        $response['status'] = 200;
+        $response['message'] = 'Success';
 
         return $response;
 
